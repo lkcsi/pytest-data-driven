@@ -1,7 +1,14 @@
 import yaml
 
+PARAMS_FROM_YML = "data_driven_yml"
 
-def load_data_yml(filename, params: tuple[str]):
+
+def params_from_yml(func):
+    setattr(func, PARAMS_FROM_YML, True)
+    return func
+
+
+def _load_data_yml(filename, params: tuple[str]):
     with open(f"test_data/{filename}.yml", "r") as file:
         data: dict = yaml.safe_load(file)
         test_cases = list(data.keys())
@@ -13,6 +20,6 @@ def load_data_yml(filename, params: tuple[str]):
 
 
 def pytest_generate_tests(metafunc):
-    if any(marker.name == "data_driven" for marker in metafunc.definition.own_markers):
-        a, b, c = load_data_yml(metafunc.definition.name, metafunc.fixturenames)
+    if hasattr(metafunc.definition.function, PARAMS_FROM_YML):
+        a, b, c = _load_data_yml(metafunc.definition.name, metafunc.fixturenames)
         metafunc.parametrize(a, b, ids=c)
