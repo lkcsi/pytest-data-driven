@@ -1,0 +1,10 @@
+test_case_1:
+  field_1: 1
+  field_2: sadasd
+  field_3: deqweqw
+  field_4: {'field_4': 34}
+test_case_2:
+  field_1: 2
+  field_2: null
+  field_3: wwwwwww
+  field_4: {'field_4': 'dasdas'}
