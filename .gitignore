@@ -1,1 +1,4 @@
 __pycache__/
+dist/
+params_from_file.egg-info
+build/
